@@ -1,34 +1,26 @@
 import { useEffect } from "react";
-import Link from "next/link";
 import Layout from "../components/Layout";
-import PopoverDemo from "@/ui/Popover";
+import Dashboard from "components/portfolio/Dashboard";
 
 const IndexPage = () => {
-  useEffect(() => {
-    const handleMessage = (_event, args) => alert(args);
+  useEffect(() => {}, []);
 
-    // add a listener to 'message' channel
-    // ipc.addListener('message', handleMessage)
-
-    return () => {
-      // ipc.removeListener('message', handleMessage)
-    };
-  }, []);
-
-  const onSayHiClick = () => {
-    // ipc.send('message', 'hi from next')
-  };
+  const onSayHiClick = () => {};
 
   return (
     <Layout title="Home | Next.js + TypeScript + Electron Example">
-      <h1>Hello Next.js 👋</h1>
-      <button onClick={onSayHiClick}>Say hi to electron</button>
+      <Dashboard />
+      {/* <h1>Hello Next.js 👋</h1>
+      <div className="grid grid-cols-5">
+        <div className="col-span-4">1</div>
+        <div className="">
+          <PortfolioSynthesis />
+          <PortfolioSynthesis />
+        </div>
+      </div>
       <p>
         <Link href="/about">About</Link>
-      </p>
-      <div>
-        <PopoverDemo />
-      </div>
+      </p> */}
     </Layout>
   );
 };
