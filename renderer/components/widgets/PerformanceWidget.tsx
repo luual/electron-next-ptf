@@ -22,7 +22,7 @@ export const PerformanceWidget = (props: PerformanceWidgetProps) => {
   return (
     <div className="grid content-between bg-[#D9D9D9] border-2 border-black rounded-[4px] h-[74px] p-1 overflow-hidden">
       <div className="flex justify-between items-center">
-        <h2 className="underline">{props.title}</h2>
+        <div className="title">{props.title}</div>
         <div className="flex items-center">
           {PositiveNegativeIcon(props.percentage)}
           <span>{props.percentage}</span>

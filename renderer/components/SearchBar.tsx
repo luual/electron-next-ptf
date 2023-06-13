@@ -13,7 +13,7 @@ export const SearchBar = () => {
        outline-none focus:shadow-[0_0_0_2px_black] 
        selection:color-white selection:bg-blackA9"
       type="text"
-      defaultValue="Search..."
+      defaultValue="Search... (Ctrl + K)"
     />
   );
 };

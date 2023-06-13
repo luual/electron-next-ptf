@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Layout from "../components/Layout";
-import Dashboard from "components/portfolio/Dashboard";
+import Dashboard from "components/Dashboard/Dashboard";
 
 const IndexPage = () => {
   useEffect(() => {}, []);

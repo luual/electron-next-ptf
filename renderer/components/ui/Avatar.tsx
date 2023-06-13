@@ -8,7 +8,7 @@ type User = {
 
 type Props = {
   users: User[];
-  className: any;
+  className?: any;
 };
 
 const AvatarDemo = () => (

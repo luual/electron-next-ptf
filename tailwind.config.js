@@ -16,7 +16,7 @@ module.exports = {
         ...blackA,
         ...mauve,
         ...violet,
-        'default-bg': '#2A2F36',
+        'default-bg': '#1E1E1E',
       },
       keyframes: {
         slideUpAndFade: {

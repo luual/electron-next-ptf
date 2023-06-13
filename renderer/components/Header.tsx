@@ -4,8 +4,8 @@ import { SearchBar } from "./SearchBar";
 
 export default function Header() {
   return (
-    <div className="flex items-center py-[12px] px-[20px] w-full">
-      <div className="w-[190px] bg-slate-200 h-[35px] rounded-[4px]
+    <div className="flex items-center h-full w-full">
+      <div className="w-[190px] bg-slate-200 rounded-[4px]
         inline-flex
         items-center
         text-center

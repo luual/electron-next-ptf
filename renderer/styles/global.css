@@ -3,6 +3,12 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
+@import url(./ui/button.css);
+@import url(./ui/header.css);
+@import url(./ui/footer.css);
+@import url(./ui/fonts.css);
+
+
 h1 {
     @apply text-2xl;
 }
@@ -13,4 +19,21 @@ h2 {
 
 .app-font { 
     font-family: 'Lobster', cursive;
+}
+
+.header {
+    height: 50px;
+    padding: 10px 20px 10px 20px;
+}
+
+.main-content {
+    height: calc(100vh - 50px - 40px);
+}
+
+.footer {
+    height: 40px;
+}
+
+button:hover {
+    border: 0px;
 }
