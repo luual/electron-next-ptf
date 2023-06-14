@@ -33,6 +33,38 @@ const ELEMENTS = [
     name: "Ford",
     value: 213.2,
   },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
+  {
+    name: "Ford",
+    value: 213.2,
+  },
 ];
 
 type PortfolioItemProps = {

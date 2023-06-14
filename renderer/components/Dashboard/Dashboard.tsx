@@ -5,8 +5,8 @@ import { PortfolioDetailsGenerator } from "components/portfolio/PortfolioDetails
 
 export default function Dashboard() {
   return (
-    <div className="h-full">
-      <div className="grid gap-2 grid-cols-4">
+    <div className="main-content flex flex-col">
+      <div className="grid gap-2 grid-cols-4 h-[75px]">
         <PerformanceWidget
           title="Best Performance"
           percentage={12.34}
@@ -36,38 +36,43 @@ export default function Dashboard() {
           value={432.19}
         />
       </div>
-      <div className="grid grid-cols-5 mt-2">
+      <div className="grid grid-cols-5 my-2 h-full w-full">
         <div className="col-span-4">
           <DashboardChart />
+          {/* <div className="bg-red-400 w-full h-full"></div> */}
         </div>
-        <div className="grid gap-2 ml-2">
-          <PortfolioContainer title="Tags">
-            <PortfolioDetailsGenerator />
-          </PortfolioContainer>
-          <PortfolioContainer title="Indicators">
-            <div className="text-[13px] leading-6">
-              <div className="flex justify-between">
-                <span>Volatility</span>
-                <span>12.4%</span>
+        <div className="grid grid-flow-row auto-rows-auto ml-2">
+          <div className="h-[400px] overflow-y-auto">
+            <PortfolioContainer title="Tags">
+              <PortfolioDetailsGenerator />
+            </PortfolioContainer>
+          </div>
+          <div>
+            <PortfolioContainer title="Indicators">
+              <div className="text-[13px] leading-6">
+                <div className="flex justify-between">
+                  <span>Volatility</span>
+                  <span>12.4%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Place</span>
+                  <span>NASDAQ</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Daily Var.</span>
+                  <span>12,23$</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Capitalization</span>
+                  <span>113 Md$</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Volume</span>
+                  <span>6,34Md</span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>Place</span>
-                <span>NASDAQ</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Daily Var.</span>
-                <span>12,23$</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Capitalization</span>
-                <span>113 Md$</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Volume</span>
-                <span>6,34Md</span>
-              </div>
-            </div>
-          </PortfolioContainer>
+            </PortfolioContainer>
+          </div>
         </div>
       </div>
     </div>

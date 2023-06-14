@@ -62,13 +62,10 @@ const data = [
 ];
 
 export default function DashboardChart() {
-  const [dataset, setDataset] = useState(data);  
+  const [dataset, setDataset] = useState(data);
   return (
-    <div>
-      <div
-        className="border-2 border-white rounded-[4px] p-1
-      h-[60vh]"
-      >
+    <div className="min-h-0 h-full">
+      <div className="border-2 border-white rounded-[4px] p-1 h-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart width={600} height={300} data={dataset}>
             <Line type="monotone" dataKey="uv" stroke="#8884d8" />

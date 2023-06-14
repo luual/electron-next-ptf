@@ -37,3 +37,11 @@ h2 {
 button:hover {
     border: 0px;
 }
+
+.grid-container {
+    display: grid;
+}
+
+.grid-container > * {
+    height: 100%;
+}

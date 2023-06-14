@@ -10,17 +10,6 @@ const IndexPage = () => {
   return (
     <Layout title="Home | Next.js + TypeScript + Electron Example">
       <Dashboard />
-      {/* <h1>Hello Next.js 👋</h1>
-      <div className="grid grid-cols-5">
-        <div className="col-span-4">1</div>
-        <div className="">
-          <PortfolioSynthesis />
-          <PortfolioSynthesis />
-        </div>
-      </div>
-      <p>
-        <Link href="/about">About</Link>
-      </p> */}
     </Layout>
   );
 };
