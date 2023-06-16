@@ -1,4 +1,6 @@
 import { LinkNone1Icon } from "@radix-ui/react-icons";
+import { increment, selectCount } from "store/features/slices";
+import { useAppDispatch, useAppSelector } from "store/hook";
 
 const ELEMENTS = [
   {
@@ -79,10 +81,16 @@ function PortfolioDetailsItem({
   item: PortfolioItemProps;
   loadTicker: (ticker: string) => void;
 }) {
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
+
   return (
     <button
       className="w-full hover:cursor-pointer"
-      onClick={() => loadTicker(item.name)}
+      onClick={() => {
+        loadTicker(item.name);
+        dispatch(increment());
+      }}
     >
       <div
         className="
@@ -96,7 +104,10 @@ function PortfolioDetailsItem({
     hover:text-blue-700"
         key={item.name}
       >
-        <LinkNone1Icon />
+        <div className="flex">
+          <span>{count}</span>
+          <LinkNone1Icon />
+        </div>
         <div>{item.name}</div>
         <span>{item.value}</span>
       </div>

@@ -1,12 +1,15 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import OptionsWidget from "components/widgets/Options";
 import React from "react";
+import { selectCount } from "store/features/slices";
+import { useAppSelector } from "store/hook";
 
 /**
  * TODO: Rename
  * @returns
  */
 export function PortfolioWidget() {
+  const count = useAppSelector(selectCount);
   return (
     <div>
       <Tabs.Root defaultValue="options">
@@ -30,9 +33,11 @@ export function PortfolioWidget() {
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="options" className="p-2">
-            <OptionsWidget />
+          <OptionsWidget />
         </Tabs.Content>
-        <Tabs.Content value="RQF"></Tabs.Content>
+        <Tabs.Content value="RFQ">
+          <div>count: {count}</div>
+        </Tabs.Content>
       </Tabs.Root>
     </div>
   );
