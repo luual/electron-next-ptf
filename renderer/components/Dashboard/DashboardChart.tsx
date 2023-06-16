@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { TickerData } from "interfaces/Tickers";
 import {
   LineChart,
   Line,
@@ -9,71 +9,38 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-    d: new Date(2023, 0, 1).toISOString(),
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-    d: new Date(2023, 0, 2).toISOString(),
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-    d: new Date(2023, 0, 3).toISOString(),
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-    d: new Date(2023, 0, 4).toISOString(),
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-    d: new Date(2023, 0, 5).toISOString(),
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-    d: new Date(2023, 0, 6).toISOString(),
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-    d: new Date(2023, 0, 7).toISOString(),
-  },
-];
-
-export default function DashboardChart() {
-  const [dataset, setDataset] = useState(data);
+export default function DashboardChart({
+  dataset,
+  ticker,
+}: {
+  dataset: TickerData[];
+  ticker: string;
+}) {
   return (
-    <div className="min-h-0 h-full">
-      <div className="border-2 border-white rounded-[4px] p-1 h-full">
+    <div className="min-h-0">
+      <div className="border-2 border-white rounded-[4px] p-1">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={600} height={300} data={dataset}>
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="pv" />
-            <YAxis />
-            <Tooltip />
-          </LineChart>
+          <div>
+            <div className="mx-4 my-1 flex gap-2 justify-between content-center">
+              <span className="text-white text-lg font-medium">{ticker}</span>
+              <div>
+                <div className="flex gap-2 text-white">
+                  <span>Open: 13$</span>
+                  <span>Close: 1$</span>
+                  <span>High: 3$</span>
+                  <span>Low: 34$</span>
+
+                </div>
+              </div>
+            </div>
+            <LineChart width={800} height={400} data={dataset}>
+              <Line type="monotone" dataKey="price" stroke="#8884d8" />
+              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+            </LineChart>
+          </div>
         </ResponsiveContainer>
       </div>
     </div>

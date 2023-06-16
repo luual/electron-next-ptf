@@ -72,31 +72,51 @@ type PortfolioItemProps = {
   value: number;
 };
 
-function PortfolioDetailsItem({ item }: { item: PortfolioItemProps }) {
+function PortfolioDetailsItem({
+  item,
+  loadTicker,
+}: {
+  item: PortfolioItemProps;
+  loadTicker: (ticker: string) => void;
+}) {
   return (
-    <div
-      className="
+    <button
+      className="w-full hover:cursor-pointer"
+      onClick={() => loadTicker(item.name)}
+    >
+      <div
+        className="
       flex
       justify-between
       text-mauve12 text-[13px] 
       leading-[18px] 
       mt-2.5 pt-2.5 
       border-t 
-    border-t-mauve6"
-      key={item.name}
-    >
-      <LinkNone1Icon />
-      <div>{item.name}</div>
-      <span>{item.value}</span>
-    </div>
+    border-t-mauve6
+    hover:text-blue-700"
+        key={item.name}
+      >
+        <LinkNone1Icon />
+        <div>{item.name}</div>
+        <span>{item.value}</span>
+      </div>
+    </button>
   );
 }
 
-export function PortfolioDetailsGenerator() {
+type PortfolioDetailProps = {
+  portfolioId: number;
+  loadTicker: (ticker: string) => void;
+};
+
+export function PortfolioDetailsGenerator({
+  portfolioId,
+  loadTicker,
+}: PortfolioDetailProps) {
   return (
     <div>
       {ELEMENTS.map((tag: PortfolioItemProps, i) => (
-        <PortfolioDetailsItem key={i} item={tag} />
+        <PortfolioDetailsItem key={i} item={tag} loadTicker={loadTicker} />
       ))}
     </div>
   );

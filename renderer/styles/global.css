@@ -45,3 +45,9 @@ button:hover {
 .grid-container > * {
     height: 100%;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+}

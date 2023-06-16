@@ -1,5 +1,6 @@
 import DashboardChart from "components/Dashboard/DashboardChart";
 import Layout from "components/Layout";
+import TabsDemo from "components/portfolio/PortfolioWidget";
 
 export default function Responsive() {
   return (
@@ -8,7 +9,7 @@ export default function Responsive() {
           <div className="bg-green-200 h-[75px]">HEader</div>
           <div className=" grid grid-cols-4 h-full w-full">
             <div className="col-span-3">
-              <DashboardChart />
+            <TabsDemo />
             </div>
             <div className="bg-blue-700 grid gap-2 grid-flow-row">
                 <div className="bg-blue-200"></div>

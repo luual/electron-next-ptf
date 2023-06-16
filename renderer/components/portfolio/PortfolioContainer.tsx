@@ -13,7 +13,7 @@ export default function PortfolioContainer(props: ContainerProps) {
       <ScrollArea.Root className="rounded overflow-y-auto shadow-[0_2px_10px] shadow-blackA7 bg-white">
         <ScrollArea.Viewport className="rounded">
           <div className="px-5">
-            <div className="title">{props.title}</div>
+            <div className="title my-2">{props.title}</div>
             {props.children}
           </div>
         </ScrollArea.Viewport>
