@@ -36,6 +36,7 @@ h2 {
 
 button:hover {
     border: 0px;
+    cursor: pointer;
 }
 
 .grid-container {

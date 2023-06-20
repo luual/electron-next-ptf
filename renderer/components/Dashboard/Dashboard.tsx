@@ -12,7 +12,7 @@ import { ResponseTypeHelper } from "utils/responses";
 import { PortfolioWidget } from "components/portfolio/PortfolioWidget";
 
 export default function Dashboard() {
-  const [websocket, setWebsocket] = useState<WebSocket>(null);
+  const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [ticker, setTicker] = useState<string>("");
   const [dataset, setDataset] = useState<TickerData[]>([]);
   const connect = (ticker: string) => {

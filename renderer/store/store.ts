@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./features/slices";
+import ToastEnabler from "./features/ToastEnabler";
 
 export const appStore = configureStore({
   reducer: {
-    counter: counterSlice
+    counter: counterSlice,
+    toast: ToastEnabler
   }
 })
 

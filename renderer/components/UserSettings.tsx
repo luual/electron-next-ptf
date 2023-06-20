@@ -41,7 +41,7 @@ export default function UserSettings() {
                 <button
                   className="flex justify-end w-full cursor-pointer
                             hover:border-0"
-                  onClick={() => (location.href = "/tests/responsive")}
+                  onClick={() => (location.href = "/tests")}
                 >
                   Responsive{" "}
                   <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">

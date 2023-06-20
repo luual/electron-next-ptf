@@ -1,16 +1,29 @@
-import * as React from "react";
 import * as Toast from "@radix-ui/react-toast";
+import { useAppSelector } from "store/hook";
+import { toastInfo } from "store/features/ToastEnabler";
+import { useEffect, useRef, useState } from "react";
 
 const ToastDemo = ({trigger}: {trigger: boolean}) => {
-  const [open, setOpen] = React.useState(trigger);
-  const eventDateRef = React.useRef(new Date());
-  const timerRef = React.useRef(0);
-
-  React.useEffect(() => {
+  const info = useAppSelector(toastInfo);
+  const [open, setOpen] = useState(trigger);
+  const eventDateRef = useRef(new Date());
+  const [message, setMessage] = useState(prettyDate(eventDateRef.current))
+  const timerRef = useRef(0);
+  
+  useEffect(() => {
     return () => clearTimeout(timerRef.current);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    console.log(info);
+    setOpen(true);
+    setMessage(info.message);
+    timerRef.current = window.setTimeout(() => {
+      setOpen(false);
+    }, 2000)
+  }, [info])
+
+  useEffect(() => {
     setOpen(trigger);
   }, [trigger])
 
@@ -30,7 +43,7 @@ const ToastDemo = ({trigger}: {trigger: boolean}) => {
               className="[grid-area:_description] m-0 text-slate11 text-[13px] leading-[1.3]"
               dateTime={eventDateRef.current.toISOString()}
             >
-              {prettyDate(eventDateRef.current)}
+              {message}
             </time>
           </Toast.Description>
           <Toast.Action
