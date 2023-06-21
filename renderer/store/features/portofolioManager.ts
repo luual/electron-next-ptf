@@ -44,6 +44,11 @@ const portfolioManagerSlice = createSlice({
         }
       }
     },
+    clearPortfolio: (state, action: PayloadAction) => {
+        state.userId = "",
+        state.selectedPortofolio = null;
+        state.portfolios = [];
+    },
     updateUserIdPortfolio: (state, action: PayloadAction<string>) => {
       state.userId = action.payload;
     },
@@ -53,7 +58,7 @@ const portfolioManagerSlice = createSlice({
   },
 });
 
-export const { updatePortfolio, updateUserIdPortfolio, updateSelectedPortfolio } =
+export const { updatePortfolio, updateUserIdPortfolio, updateSelectedPortfolio, clearPortfolio } =
   portfolioManagerSlice.actions;
 export const portfolioManagerInfo = (state: RootState) =>
   state.portfolioManager;

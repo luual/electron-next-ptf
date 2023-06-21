@@ -2,36 +2,52 @@ import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { DropdownImageButton } from "./ui/DropdownButton";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useAppDispatch, useAppSelector } from "store/hook";
-import { updateUser, userInfo } from "@features/users";
+import { updateUser, userInfo } from "@features/userSlice";
 import axios from "axios";
 import {
   Portfolio,
+  clearPortfolio,
   updatePortfolio,
   updateUserIdPortfolio,
 } from "@features/portofolioManager";
 import { User } from "interfaces/users";
+import { useEffect } from "react";
 
 export default function UserSettings() {
   const user = useAppSelector(userInfo);
   const dispatcher = useAppDispatch();
 
-  const requestUser = async () => {
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    console.log(userData);
+    if (userData != null && userData != "") {
+      const deserializedUser: User = JSON.parse(userData);
+      dispatcher(updateUser(deserializedUser));
+      requestPortfolioData(deserializedUser.id);
+    }
+  }, []);
 
+  const requestUser = async () => {
     const result = await axios.get("http://localhost:5000/user/random");
     const userData: User = result.data;
     dispatcher(updateUser(userData));
     dispatcher(updateUserIdPortfolio(userData.id));
+    localStorage.setItem("user", JSON.stringify(userData));
     await requestPortfolioData(userData.id);
   };
 
-  const requestPortfolioData = async (userId: string) => {
+  const disconnectUser = () => {
+    dispatcher(updateUser(null));
+    localStorage.removeItem("user");
+    dispatcher(clearPortfolio());
+  };
 
+  const requestPortfolioData = async (userId: string) => {
     const result = await axios.get(
       `http://localhost:5000/users/${userId}/portfolio`
     );
     const portfolios: Portfolio[] = result.data;
     portfolios.forEach((x) => dispatcher(updatePortfolio(x)));
-    console.log(portfolios);
   };
 
   return (
@@ -43,15 +59,23 @@ export default function UserSettings() {
          shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
         sideOffset={5}
       >
-        <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-          <button
-            className="flex justify-end w-full cursor-pointer
+        {user == null || user.id == "" ? (
+          <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+            <button
+              className="flex justify-end w-full cursor-pointer
             hover:border-0"
-            onClick={() => requestUser()}
-          >
-            Connect
-          </button>
-        </DropdownMenu.Item>
+              onClick={() => requestUser()}
+            >
+              Connect
+              <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+                ⌘+T
+              </div>
+            </button>
+          </DropdownMenu.Item>
+        ) : (
+          <></>
+        )}
+
         <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
           <button
             className="flex justify-end w-full cursor-pointer
@@ -126,6 +150,23 @@ export default function UserSettings() {
             </div>
           </button>
         </DropdownMenu.Item>
+        {user == null ? (
+          <></>
+        ) : (
+          <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+            <button
+              className="flex justify-end w-full cursor-pointer
+            hover:border-0"
+              onClick={() => disconnectUser()}
+            >
+              Disconnect{" "}
+              <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+                ⌘+T
+              </div>
+            </button>
+          </DropdownMenu.Item>
+        )}
+
         <DropdownMenu.Arrow className="fill-white" />
       </DropdownMenu.Content>
     </DropdownImageButton>

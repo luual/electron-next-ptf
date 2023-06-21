@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./features/slices";
 import ToastEnabler from "./features/ToastEnabler";
-import userSlice from "./features/users"
+import userSlice from "./features/userSlice"
 import portfolioManagerSlice from "./features/portofolioManager"
 
 export const appStore = configureStore({
