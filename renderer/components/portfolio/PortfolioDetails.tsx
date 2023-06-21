@@ -1,94 +1,31 @@
+import {
+  MiniTickerMetaData,
+  portfolioManagerInfo,
+} from "@features/portofolioManager";
 import { LinkNone1Icon } from "@radix-ui/react-icons";
 import { increment, selectCount } from "store/features/slices";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
-const ELEMENTS = [
-  {
-    name: "Air Liquid",
-    value: 213.2,
-  },
-  {
-    name: "Total",
-    value: 92.2,
-  },
-  {
-    name: "CA",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-  {
-    name: "Ford",
-    value: 213.2,
-  },
-];
-
 type PortfolioItemProps = {
   name: string;
   value: number;
+  quantity: number;
 };
 
 function PortfolioDetailsItem({
   item,
   loadTicker,
 }: {
-  item: PortfolioItemProps;
+  item: MiniTickerMetaData;
   loadTicker: (ticker: string) => void;
 }) {
-  const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
 
   return (
     <button
       className="w-full hover:cursor-pointer"
       onClick={() => {
-        loadTicker(item.name);
+        loadTicker(item.symbol);
         dispatch(increment());
       }}
     >
@@ -102,14 +39,13 @@ function PortfolioDetailsItem({
       border-t 
     border-t-mauve6
     hover:text-blue-700"
-        key={item.name}
+        key={item.symbol}
       >
         <div className="flex">
-          <span>{count}</span>
           <LinkNone1Icon />
         </div>
-        <div>{item.name}</div>
-        <span>{item.value}</span>
+        <div>{item.symbol}</div>
+        <span>{item.quantity}</span>
       </div>
     </button>
   );
@@ -124,11 +60,15 @@ export function PortfolioDetailsGenerator({
   portfolioId,
   loadTicker,
 }: PortfolioDetailProps) {
+  const portfolio = useAppSelector(portfolioManagerInfo);
+
   return (
     <div>
-      {ELEMENTS.map((tag: PortfolioItemProps, i) => (
-        <PortfolioDetailsItem key={i} item={tag} loadTicker={loadTicker} />
-      ))}
+      {portfolio.selectedPortofolio?.tickers?.map(
+        (tag: MiniTickerMetaData, i) => (
+          <PortfolioDetailsItem key={i} item={tag} loadTicker={loadTicker} />
+        )
+      )}
     </div>
   );
 }

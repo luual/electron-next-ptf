@@ -3,11 +3,16 @@ import { useAppSelector } from "store/hook";
 import { toastInfo } from "store/features/ToastEnabler";
 import { useEffect, useRef, useState } from "react";
 
+type ToastProps = {
+  message: string;
+  time: number;
+}
+
 const ToastDemo = ({trigger}: {trigger: boolean}) => {
   const info = useAppSelector(toastInfo);
   const [open, setOpen] = useState(trigger);
+  const [data, setData] = useState<ToastProps>();
   const eventDateRef = useRef(new Date());
-  const [message, setMessage] = useState(prettyDate(eventDateRef.current))
   const timerRef = useRef(0);
   
   useEffect(() => {
@@ -15,12 +20,14 @@ const ToastDemo = ({trigger}: {trigger: boolean}) => {
   }, []);
 
   useEffect(() => {
-    console.log(info);
     setOpen(true);
-    setMessage(info.message);
+    setData({
+      message: info.message,
+      time: info.time
+    })
     timerRef.current = window.setTimeout(() => {
       setOpen(false);
-    }, 2000)
+    }, 5000)
   }, [info])
 
   useEffect(() => {
@@ -43,7 +50,7 @@ const ToastDemo = ({trigger}: {trigger: boolean}) => {
               className="[grid-area:_description] m-0 text-slate11 text-[13px] leading-[1.3]"
               dateTime={eventDateRef.current.toISOString()}
             >
-              {message}
+              {new Date(data?.time ?? 0).toLocaleString()}: {data?.message}
             </time>
           </Toast.Description>
           <Toast.Action

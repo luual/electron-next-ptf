@@ -13,6 +13,9 @@
       ],
       "@/styles/*": [
         "styles/*"
+      ],
+      "@features/*": [
+        "store/features/*"
       ]
     },
     "allowJs": true,

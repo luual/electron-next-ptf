@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [ticker, setTicker] = useState<string>("");
   const [dataset, setDataset] = useState<TickerData[]>([]);
-  const connect = (ticker: string) => {
+  const connectTicker = (ticker: string) => {
     const ws = new WebSocket("ws://localhost:5000/ticker");
 
     ws.onmessage = (event: MessageEvent<string>) => {
@@ -43,8 +43,8 @@ export default function Dashboard() {
       };
       ws.send(JSON.stringify(requestedTicker));
     };
-    ws.onclose = (event) => {
-      console.log("close socket", event);
+    ws.onclose = () => {
+      ws.close();
       setWebsocket(null);
     };
 
@@ -97,7 +97,7 @@ export default function Dashboard() {
         <div className="grid grid-flow-row auto-rows-auto ml-2">
           <div className="h-[400px] overflow-y-auto">
             <PortfolioContainer title="Tags">
-              <PortfolioDetailsGenerator portfolioId={1} loadTicker={connect} />
+              <PortfolioDetailsGenerator portfolioId={1} loadTicker={connectTicker} />
             </PortfolioContainer>
           </div>
           <div>
@@ -105,7 +105,7 @@ export default function Dashboard() {
               <div className="text-[13px] leading-6">
                 <div className="flex justify-between">
                   <span>Volatility</span>
-                  <span>12.4%</span>
+                  <span>11.4%</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Place</span>

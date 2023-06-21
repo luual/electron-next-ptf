@@ -10,7 +10,7 @@ type ContainerProps = {
 export default function PortfolioContainer(props: ContainerProps) {
   return (
     <div>
-      <ScrollArea.Root className="rounded overflow-y-auto shadow-[0_2px_10px] shadow-blackA7 bg-white">
+      <ScrollArea.Root className="rounded overflow-y-auto shadow-[0_2px_10px] shadow-blackA7 bg-white py-1">
         <ScrollArea.Viewport className="rounded">
           <div className="px-5">
             <div className="title my-2">{props.title}</div>

@@ -3,7 +3,7 @@ import TooltipCard from "./ui/TooltipCard";
 import { useState } from "react";
 
 export default function Footer() {
-    const [websocket, setWebsocket] = useState<WebSocket>(null);
+    const [websocket, setWebsocket] = useState<WebSocket>();
     const connect = () => {
       const ws = new WebSocket("ws://localhost:5000/rd");
       ws.onmessage = (event) => {
