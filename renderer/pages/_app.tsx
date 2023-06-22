@@ -7,7 +7,7 @@ import { appStore } from "store/store";
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={appStore}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </Provider>
   );
 }

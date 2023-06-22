@@ -131,13 +131,16 @@ export default function UserSettings() {
         </DropdownMenu.Sub>
 
         <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-          Settings{" "}
-          <a
-            className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8"
-            href="#"
+          <button
+            className="flex justify-end w-full cursor-pointer
+                        hover:border-0"
+            onClick={() => window.open("/about")}
           >
-            ⌘+N
-          </a>
+            Settings{" "}
+            <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+              ⌘+T
+            </div>
+          </button>
         </DropdownMenu.Item>
         <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
           <button
@@ -163,7 +166,7 @@ export default function UserSettings() {
             </div>
           </button>
         </DropdownMenu.Item>
-        {user == null ? (
+        {user == null || user.id == "" ? (
           <></>
         ) : (
           <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">

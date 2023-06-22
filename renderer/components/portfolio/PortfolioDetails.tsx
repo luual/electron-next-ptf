@@ -63,7 +63,7 @@ export function PortfolioDetailsGenerator({
   const portfolio = useAppSelector(portfolioManagerInfo);
 
   return (
-    <div>
+    <div className="overflow-y-auto">
       {portfolio.selectedPortofolio?.tickers?.map(
         (tag: MiniTickerMetaData, i) => (
           <PortfolioDetailsItem key={i} item={tag} loadTicker={loadTicker} />

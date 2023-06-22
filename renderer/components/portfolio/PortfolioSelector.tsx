@@ -1,13 +1,10 @@
-import UserSettings from "./UserSettings";
-import { SearchBar } from "./SearchBar";
 import {
   portfolioManagerInfo,
   updateSelectedPortfolio,
 } from "@features/portofolioManager";
 import { useAppDispatch, useAppSelector } from "store/hook";
-import PortfolioSelector from "./portfolio/PortfolioSelector";
 
-export default function Header() {
+export default function PortfolioSelector() {
   const portfolios = useAppSelector(portfolioManagerInfo);
   const dispatch = useAppDispatch();
   const onChange = (value: string) => {
@@ -17,12 +14,16 @@ export default function Header() {
     }
   };
   return (
-    <div className="flex items-center h-full w-full">
-      <PortfolioSelector />
-      <div className="ml-auto">
-        <SearchBar />
-        <UserSettings />
-      </div>
-    </div>
+    <select
+      className="w-[250px] rounded-[2px] h-[25px]"
+      onChange={(event) => onChange(event.target.value)}
+    >
+      <option value="">Portfolio</option>
+      {portfolios?.portfolios?.map((ptf, i) => (
+        <option key={i} value={ptf.id}>
+          {ptf.id}
+        </option>
+      ))}
+    </select>
   );
 }

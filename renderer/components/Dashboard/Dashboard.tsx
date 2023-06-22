@@ -1,5 +1,4 @@
 import { PerformanceWidget } from "components/widgets/PerformanceWidget";
-import DashboardChart from "./DashboardChart";
 import PortfolioContainer from "components/portfolio/PortfolioContainer";
 import { PortfolioDetailsGenerator } from "components/portfolio/PortfolioDetails";
 import { useState } from "react";
@@ -10,13 +9,17 @@ import {
 } from "interfaces/Tickers";
 import { ResponseTypeHelper } from "utils/responses";
 import { PortfolioWidget } from "components/portfolio/PortfolioWidget";
+import AreaChart from "components/charts/AreaChart";
+import { OHLC, SerieData } from "components/charts/Chartdata";
+import CandlestickChart from "components/charts/CandleStickCharts";
 
 export default function Dashboard() {
   const [websocket, setWebsocket] = useState<WebSocket | null>(null);
   const [ticker, setTicker] = useState<string>("");
-  const [dataset, setDataset] = useState<TickerData[]>([]);
+  const [serieData, setSerieData] = useState<SerieData[]>([]);
+  const [OHLCserieData, setOHLCSerieData] = useState<OHLC[]>([]);
   const connectTicker = (ticker: string) => {
-    const ws = new WebSocket("ws://localhost:5000/ticker");
+    const ws = new WebSocket("ws://localhost:5000/ticker/ohlc");
 
     ws.onmessage = (event: MessageEvent<string>) => {
       if (websocket != null) {
@@ -26,16 +29,20 @@ export default function Dashboard() {
       const config = JSON.parse(event.data) as WebsocketResponse;
 
       const helper = new ResponseTypeHelper();
-      helper.register(2001, (data: TickerData) =>
-        setDataset((old) => [...old, data])
-      );
+      helper.register(3001, (data: TickerData) => {
+        setSerieData((old) => [...old, { time: data.time, value: data.price }]);
+      });
+      helper.register(3002, (data: OHLC) => {
+        setOHLCSerieData((old) => [...old, data]);
+      });
       helper.register(2002, (data: TickerSubscription) =>
         setTicker(data.symbol)
       );
       helper.compute(config.messageId, config);
     };
-    ws.onopen = (event) => {
-      setDataset([]);
+    ws.onopen = (_) => {
+      setSerieData([]);
+      setOHLCSerieData([]);
       const requestedTicker: TickerData = {
         symbol: ticker,
         price: 0,
@@ -83,49 +90,75 @@ export default function Dashboard() {
           value={432.19}
         />
       </div>
-      <div className="grid grid-cols-5 my-2 h-full w-full">
-        <div className="col-span-4">
-          <div className="flex flex-col h-full">
-            <div className="w-full">
-              <DashboardChart ticker={ticker} dataset={dataset} />
-            </div>
-            <div className="w-full flex-auto bg-red-200 rounded-[4px] my-2">
-              <PortfolioWidget />
-            </div>
+      <div className="grid grid-cols-5 my-2 flex-auto w-full">
+        <div className="col-span-4 flex flex-col rounded-[2px]">
+          <div className="h-[40px] flex justify-between text-white items-center">
+            <div className="font-medium">{ticker}</div>
+            <div>Stats:</div>
+          </div>
+          <CandlestickChart className="flex-auto" data={OHLCserieData} />
+          {/* <AreaChart className="flex-auto" data={serieData} /> */}
+          <div className="w-full bg-red-200 rounded-[4px] my-2">
+            <PortfolioWidget />
           </div>
         </div>
-        <div className="grid grid-flow-row auto-rows-auto ml-2">
-          <div className="h-[400px] overflow-y-auto">
+        <div className="grid grid-flow-row auto-rows-auto ml-2 gap-2">
+          <div className="">
             <PortfolioContainer title="Tags">
-              <PortfolioDetailsGenerator portfolioId={1} loadTicker={connectTicker} />
+              <PortfolioDetailsGenerator
+                portfolioId={1}
+                loadTicker={connectTicker}
+              />
             </PortfolioContainer>
           </div>
-          <div>
-            <PortfolioContainer title="Indicators">
-              <div className="text-[13px] leading-6">
-                <div className="flex justify-between">
-                  <span>Volatility</span>
-                  <span>11.4%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Place</span>
-                  <span>NASDAQ</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Daily Var.</span>
-                  <span>12,23$</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Capitalization</span>
-                  <span>113 Md$</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Volume</span>
-                  <span>6,34Md</span>
-                </div>
+          <PortfolioContainer title="Indicators">
+            <div className="text-[13px] leading-6">
+              <div className="flex justify-between">
+                <span>Volatility</span>
+                <span>11.4%</span>
               </div>
-            </PortfolioContainer>
-          </div>
+              <div className="flex justify-between">
+                <span>Place</span>
+                <span>NASDAQ</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Daily Var.</span>
+                <span>12,23$</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Capitalization</span>
+                <span>113 Md$</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Volume</span>
+                <span>6,34Md</span>
+              </div>
+            </div>
+          </PortfolioContainer>
+          <PortfolioContainer title="Indicators">
+            <div className="text-[13px] leading-6">
+              <div className="flex justify-between">
+                <span>Volatility</span>
+                <span>11.4%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Place</span>
+                <span>NASDAQ</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Daily Var.</span>
+                <span>12,23$</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Capitalization</span>
+                <span>113 Md$</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Volume</span>
+                <span>6,34Md</span>
+              </div>
+            </div>
+          </PortfolioContainer>
         </div>
       </div>
     </div>
