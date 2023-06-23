@@ -1,4 +1,4 @@
-const { blackA, mauve, violet } = require('@radix-ui/colors');
+const { blackA, mauve, violet } = require("@radix-ui/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         ...blackA,
         ...mauve,
         ...violet,
-        'default-bg': '#1E1E1E',
+        "default-bg": "#1E1E1E",
       },
       keyframes: {
         slideUpAndFade: {
@@ -35,6 +35,14 @@ module.exports = {
           from: { opacity: 0, transform: "translateX(2px)" },
           to: { opacity: 1, transform: "translateX(0)" },
         },
+        slideLeft: {
+          from: {
+            transform: "translateX(0)",
+          },
+          to: {
+            transform: "translateX(-300%)",
+          },
+        },
       },
       animation: {
         slideUpAndFade: "slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -44,6 +52,7 @@ module.exports = {
           "slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
         slideLeftAndFade:
           "slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)",
+        slideLeft: "slideLeft 20s linear infinite;",
       },
     },
   },

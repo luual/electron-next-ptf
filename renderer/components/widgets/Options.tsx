@@ -42,7 +42,6 @@ export default function OptionsWidget() {
         <OptionCalculator />
         <OptionCalculator />
         <OptionCalculator />
-
       </div>
     </div>
   );
