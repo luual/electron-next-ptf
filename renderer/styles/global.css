@@ -52,3 +52,7 @@ input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
 }
+
+:root {
+    --main-bg-color: #1E1E1E;
+}

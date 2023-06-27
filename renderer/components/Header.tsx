@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Stock } from "interfaces/Tickers";
 import Image from "next/image";
-import pnf from "/public/PFN.png"
+import pnf from "/public/images/PFN.png"
 
 export default function Header() {
   const [stocks, setStocks] = useState<Stock[]>([]);
@@ -18,7 +18,7 @@ export default function Header() {
   }, []);
   return (
     <div className="flex items-center h-full w-full">
-      <Image alt="l" src={pnf} width={32} height={32} />
+      <Image className="mx-2" alt="l" src={pnf} width={32} height={32} />
       <PortfolioSelector />
       <div className="ml-auto">
         <SearchBar stocks={stocks} />
