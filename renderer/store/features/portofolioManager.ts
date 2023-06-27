@@ -10,6 +10,7 @@ export type PortfolioManager = {
 export type Portfolio = {
   id: string;
   userId: string;
+  name: string;
   tickers: MiniTickerMetaData[];
 };
 

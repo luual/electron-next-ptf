@@ -10,8 +10,8 @@ type Props = {
 };
 
 const Layout = ({ children, title = "This is the default title" }: Props) => {
-  const [toastOpen ,setToastOpen] = useState(false);
-  
+  const [toastOpen, setToastOpen] = useState(false);
+
   return (
     <div className="bg-default-bg h-screen">
       <Head>
@@ -22,7 +22,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
       <header className="header">
         <Header />
       </header>
-      <ToastDemo trigger={toastOpen}/>
+      <ToastDemo trigger={toastOpen} />
       <div className="main-content mx-[20px]">{children}</div>
       <footer className="footer">
         <Footer />

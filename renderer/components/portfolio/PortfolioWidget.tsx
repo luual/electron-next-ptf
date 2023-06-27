@@ -22,12 +22,12 @@ export function PortfolioWidget() {
     }))
   }
   return (
-    <div>
-      <Tabs.Root defaultValue="options">
+    <div className="h-full">
+      <Tabs.Root className="h-full" defaultValue="options">
         <Tabs.List className="border-b-2">
           <Tabs.Trigger
             className="w-[120px] text-center px-2
-            hover:text-teal-50
+            hover:text-gray-600
             rounded-tl-[4px]
             data-[state=active]:bg-red-400"
             value="options"

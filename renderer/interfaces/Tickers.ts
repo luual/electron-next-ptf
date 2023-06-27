@@ -15,3 +15,12 @@ export type TickerSubscription = {
     state: boolean;
     id: number;
 }
+
+export type Stock = {
+    id: number,
+    symbol: string,
+    mic: string,
+    figi: string,
+    description: string,
+    currency: string,
+}

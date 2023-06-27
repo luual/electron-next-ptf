@@ -3,13 +3,15 @@ import counterSlice from "./features/slices";
 import ToastEnabler from "./features/ToastEnabler";
 import userSlice from "./features/userSlice"
 import portfolioManagerSlice from "./features/portofolioManager"
+import StockSlice from "@features/StockSlice";
 
 export const appStore = configureStore({
   reducer: {
     counter: counterSlice,
     toast: ToastEnabler,
     user: userSlice,
-    portfolioManager: portfolioManagerSlice
+    portfolioManager: portfolioManagerSlice,
+    stock: StockSlice
   }
 })
 

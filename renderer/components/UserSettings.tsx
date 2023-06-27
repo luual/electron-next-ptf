@@ -19,7 +19,6 @@ export default function UserSettings() {
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
-    console.log(userData);
     if (userData != null && userData != "") {
       const deserializedUser: User = JSON.parse(userData);
       dispatcher(updateUser(deserializedUser));
@@ -28,7 +27,7 @@ export default function UserSettings() {
   }, []);
 
   const requestUser = async () => {
-    const result = await axios.get("http://localhost:5000/user/random");
+    const result = await axios.get("http://192.168.0.14:5000/user/random");
     const userData: User = result.data;
     dispatcher(updateUser(userData));
     dispatcher(updateUserIdPortfolio(userData.id));
@@ -44,7 +43,7 @@ export default function UserSettings() {
 
   const requestPortfolioData = async (userId: string) => {
     const result = await axios.get(
-      `http://localhost:5000/users/${userId}/portfolio`
+      `http://192.168.0.14:5000/users/${userId}/portfolio`
     );
     const portfolios: Portfolio[] = result.data;
     portfolios.forEach((x) => dispatcher(updatePortfolio(x)));

@@ -20,7 +20,7 @@ const PositiveNegativeIcon = (value: number): ReactNode => {
 
 export const PerformanceWidget = (props: PerformanceWidgetProps) => {
   return (
-    <div className="grid content-between bg-[#D9D9D9] border-2 border-black rounded-[4px] h-[74px] p-1 overflow-hidden">
+    <div className="grid content-between bg-[#D9D9D9] border-2 border-black rounded-[4px] p-1 overflow-hidden">
       <div className="flex justify-between items-center">
         <div className="title">{props.title}</div>
         <div className="flex items-center">

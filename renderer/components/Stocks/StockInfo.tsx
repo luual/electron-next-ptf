@@ -19,9 +19,10 @@ export default function StockInfo() {
           <span>113 Md$</span>
         </div>
         <div className="flex justify-between">
-          <span>Volume</span>
-          <span>6,34Md</span>
+          <span>Div. Yield</span>
+          <span>2.72%</span>
         </div>
+
       </div>
     </>
   );

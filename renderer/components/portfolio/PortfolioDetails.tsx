@@ -1,3 +1,4 @@
+import { updateStock } from "@features/StockSlice";
 import {
   MiniTickerMetaData,
   portfolioManagerInfo,
@@ -12,21 +13,24 @@ type PortfolioItemProps = {
   quantity: number;
 };
 
-function PortfolioDetailsItem({
-  item,
-  loadTicker,
-}: {
-  item: MiniTickerMetaData;
-  loadTicker: (ticker: string) => void;
-}) {
+function PortfolioDetailsItem({ item }: { item: MiniTickerMetaData }) {
   const dispatch = useAppDispatch();
 
   return (
     <button
       className="w-full hover:cursor-pointer"
       onClick={() => {
-        loadTicker(item.symbol);
-        dispatch(increment());
+        console.log("dispatch");
+        dispatch(
+          updateStock({
+            id: 0,
+            currency: "",
+            figi: "",
+            mic: "",
+            symbol: "",
+            description: item.symbol,
+          })
+        );
       }}
     >
       <div
@@ -53,12 +57,10 @@ function PortfolioDetailsItem({
 
 type PortfolioDetailProps = {
   portfolioId: number;
-  loadTicker: (ticker: string) => void;
 };
 
 export function PortfolioDetailsGenerator({
   portfolioId,
-  loadTicker,
 }: PortfolioDetailProps) {
   const portfolio = useAppSelector(portfolioManagerInfo);
 
@@ -66,7 +68,7 @@ export function PortfolioDetailsGenerator({
     <div className="overflow-y-auto">
       {portfolio.selectedPortofolio?.tickers?.map(
         (tag: MiniTickerMetaData, i) => (
-          <PortfolioDetailsItem key={i} item={tag} loadTicker={loadTicker} />
+          <PortfolioDetailsItem key={i} item={tag} />
         )
       )}
     </div>

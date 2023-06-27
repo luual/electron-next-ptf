@@ -1,26 +1,27 @@
 import UserSettings from "./UserSettings";
 import { SearchBar } from "./SearchBar";
-import {
-  portfolioManagerInfo,
-  updateSelectedPortfolio,
-} from "@features/portofolioManager";
-import { useAppDispatch, useAppSelector } from "store/hook";
 import PortfolioSelector from "./portfolio/PortfolioSelector";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Stock } from "interfaces/Tickers";
+import Image from "next/image";
+import pnf from "/public/PFN.png"
 
 export default function Header() {
-  const portfolios = useAppSelector(portfolioManagerInfo);
-  const dispatch = useAppDispatch();
-  const onChange = (value: string) => {
-    const portfolio = portfolios.portfolios.filter((p) => p.id === value);
-    if (portfolio != null && portfolio.length === 1) {
-      dispatch(updateSelectedPortfolio(portfolio[0]));
-    }
-  };
+  const [stocks, setStocks] = useState<Stock[]>([]);
+  useEffect(() => {
+    axios.get("http://192.168.0.14:5000/api/stocks").then((result) => {
+      if (result.status === 200) {
+        setStocks(result.data);
+      }
+    });
+  }, []);
   return (
     <div className="flex items-center h-full w-full">
+      <Image alt="l" src={pnf} width={32} height={32} />
       <PortfolioSelector />
       <div className="ml-auto">
-        <SearchBar />
+        <SearchBar stocks={stocks} />
         <UserSettings />
       </div>
     </div>
