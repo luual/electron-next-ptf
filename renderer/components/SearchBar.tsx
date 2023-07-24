@@ -47,7 +47,7 @@ export const SearchBar = ({ stocks }: SearchBarProps) => {
                     <ul>
                       {stocks?.map((item) => (
                         <li
-                          key={item.id}
+                          key={item._id}
                           className="border border-purple-300 rounded-[4px] my-1 hover:bg-slate-200"
                         >
                           <button

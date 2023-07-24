@@ -1,10 +1,7 @@
 import { updateStock } from "@features/StockSlice";
-import {
-  MiniTickerMetaData,
-  portfolioManagerInfo,
-} from "@features/portofolioManager";
+import { portfolioManagerInfo } from "@features/portofolioManager";
 import { LinkNone1Icon } from "@radix-ui/react-icons";
-import { increment, selectCount } from "store/features/slices";
+import { StockQuantity } from "interfaces/Tickers";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
 type PortfolioItemProps = {
@@ -13,7 +10,7 @@ type PortfolioItemProps = {
   quantity: number;
 };
 
-function PortfolioDetailsItem({ item }: { item: MiniTickerMetaData }) {
+function PortfolioDetailsItem({ item }: { item: StockQuantity }) {
   const dispatch = useAppDispatch();
 
   return (
@@ -23,12 +20,12 @@ function PortfolioDetailsItem({ item }: { item: MiniTickerMetaData }) {
         console.log("dispatch");
         dispatch(
           updateStock({
-            id: 0,
-            currency: "",
-            figi: "",
-            mic: "",
-            symbol: "",
-            description: item.symbol,
+            _id: item.stock._id,
+            currency: item.stock.currency,
+            figi: item.stock.figi,
+            mic: item.stock.mic,
+            symbol: item.stock.symbol,
+            description: item.stock.description,
           })
         );
       }}
@@ -43,12 +40,12 @@ function PortfolioDetailsItem({ item }: { item: MiniTickerMetaData }) {
       border-t 
     border-t-mauve6
     hover:text-blue-700"
-        key={item.symbol}
+        key={item.stock.description}
       >
         <div className="flex">
           <LinkNone1Icon />
         </div>
-        <div>{item.symbol}</div>
+        <div>{item.stock.description}</div>
         <span>{item.quantity}</span>
       </div>
     </button>
@@ -66,11 +63,9 @@ export function PortfolioDetailsGenerator({
 
   return (
     <div className="overflow-y-auto">
-      {portfolio.selectedPortofolio?.tickers?.map(
-        (tag: MiniTickerMetaData, i) => (
-          <PortfolioDetailsItem key={i} item={tag} />
-        )
-      )}
+      {portfolio.selectedPortofolio?.stocks?.map((tag: StockQuantity, i) => (
+        <PortfolioDetailsItem key={i} item={tag} />
+      ))}
     </div>
   );
 }

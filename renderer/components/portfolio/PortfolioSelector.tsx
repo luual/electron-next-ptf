@@ -8,10 +8,11 @@ export default function PortfolioSelector() {
   const portfolios = useAppSelector(portfolioManagerInfo);
   const dispatch = useAppDispatch();
   const onChange = (value: string) => {
-    const portfolio = portfolios.portfolios.filter((p) => p.id === value);
+    const portfolio = portfolios.portfolios.filter((p) => p._id === value);
     if (portfolio != null && portfolio.length === 1) {
       dispatch(updateSelectedPortfolio(portfolio[0]));
     } else {
+      //@ts-ignore
       dispatch(updateSelectedPortfolio(null))
     }
   };
@@ -22,7 +23,7 @@ export default function PortfolioSelector() {
     >
       <option value="">-- Select Portfolio --</option>
       {portfolios?.portfolios?.map((ptf, i) => (
-        <option key={i} value={ptf.id}>
+        <option key={i} value={ptf._id}>
           {ptf.name}
         </option>
       ))}

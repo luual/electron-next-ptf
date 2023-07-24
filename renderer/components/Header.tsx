@@ -5,15 +5,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Stock } from "interfaces/Tickers";
 import Image from "next/image";
-import pnf from "/public/images/PFN.png"
+import pnf from "/public/images/PFN.png";
+import APIRequest from "utils/ApiRequest";
 
 export default function Header() {
   const [stocks, setStocks] = useState<Stock[]>([]);
   useEffect(() => {
-    axios.get("http://192.168.0.14:5000/api/stocks").then((result) => {
-      if (result.status === 200) {
-        setStocks(result.data);
-      }
+    APIRequest.GetStocks().then((result) => {
+      setStocks(result);
     });
   }, []);
   return (

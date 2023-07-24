@@ -16,8 +16,13 @@ export type TickerSubscription = {
     id: number;
 }
 
+export type StockQuantity = {
+    quantity: number;
+    stock: Stock
+}
+
 export type Stock = {
-    id: number,
+    _id: number,
     symbol: string,
     mic: string,
     figi: string,

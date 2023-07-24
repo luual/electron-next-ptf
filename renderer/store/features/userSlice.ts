@@ -3,7 +3,7 @@ import { RootState } from "store/store";
 import { User } from "interfaces/users";
 
 const initialState: User = {
-    id: "",
+    _id: "",
     lastname: "",
     name: "",
     userIcon: "",
@@ -15,12 +15,12 @@ const userSlice = createSlice({
     reducers: {
         updateUser: (state, action: PayloadAction<User | null>) => {
             if (action.payload == null) {
-                state.id = "";
+                state._id = "";
                 state.name = "";
                 state.lastname = "";
                 state.userIcon = "";
             } else {   
-                state.id = action.payload.id;
+                state._id = action.payload._id;
                 state.name = action.payload.name;
                 state.lastname = action.payload.lastname;
                 state.userIcon = action.payload.userIcon;
