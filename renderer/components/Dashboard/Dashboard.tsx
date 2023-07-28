@@ -39,18 +39,21 @@ export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>();
   const [OHLCserieData, setOHLCSerieData] = useState<OHLC[]>([]);
   const selectedPortfolio = useAppSelector(portfolioManagerInfo);
-
   const selectedStock = useAppSelector(stockInfo);
 
   useEffect(() => {
-    console.log(selectedStock)
+    console.log(selectedStock);
+  }, [])
+
+  useEffect(() => {
     if (selectedStock.description != "") {
+      console.log("Querying real time data for ", selectedStock.description);
       connectTicker(selectedStock.description);
     }
   }, [selectedStock]);
 
   const connectTicker = (ticker: string) => {
-    const ws = new WebSocket("ws://192.168.0.14:5000/ticker/ohlc");
+    const ws = new WebSocket("ws://192.168.0.32:6200/ticker/ohlc");
     setOHLCSerieData([]);
 
     ws.onmessage = (event: MessageEvent<string>) => {

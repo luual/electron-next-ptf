@@ -12,7 +12,7 @@ import {
 
 const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({ uri: "http://192.168.0.14/graphql" }),
+  link: new HttpLink({ uri: "http://192.168.0.32/graphql" }),
 });
 
 export default function MyApp({ Component, pageProps }: AppProps) {

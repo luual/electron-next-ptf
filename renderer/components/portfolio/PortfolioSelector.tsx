@@ -2,11 +2,13 @@ import {
   portfolioManagerInfo,
   updateSelectedPortfolio,
 } from "@features/portofolioManager";
+
 import { useAppDispatch, useAppSelector } from "store/hook";
 
 export default function PortfolioSelector() {
   const portfolios = useAppSelector(portfolioManagerInfo);
   const dispatch = useAppDispatch();
+
   const onChange = (value: string) => {
     const portfolio = portfolios.portfolios.filter((p) => p._id === value);
     if (portfolio != null && portfolio.length === 1) {

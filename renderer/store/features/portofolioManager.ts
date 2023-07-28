@@ -55,6 +55,7 @@ const portfolioManagerSlice = createSlice({
 
 export const { updatePortfolio, updateUserIdPortfolio, updateSelectedPortfolio, clearPortfolio } =
   portfolioManagerSlice.actions;
+
 export const portfolioManagerInfo = (state: RootState) =>
   state.portfolioManager;
 

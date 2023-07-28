@@ -3,7 +3,7 @@ import { Stock } from "interfaces/Tickers";
 import { RootState } from "store/store";
 
 const initialState: Stock = {
-  id: 0,
+  _id: 0,
   currency: "",
   description: "",
   figi: "",
@@ -19,7 +19,7 @@ const stockSlice = createSlice({
       if (action.payload == null) {
         state = { ...initialState };
       } else {
-        state.id = action.payload.id;
+        state._id = action.payload._id;
         state.currency = action.payload.currency;
         state.description = action.payload.description;
         state.figi = action.payload.figi;

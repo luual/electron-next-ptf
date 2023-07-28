@@ -6,19 +6,18 @@ import { User } from "interfaces/users";
 export default class APIRequest {
   public static async GetUserWallets(userId:string): Promise<Wallet[] | null> {    
     const result = await axios.get(
-      `http://192.168.0.14:5000/api/wallets/users/${userId}`
+      `http://192.168.0.32:6200/api/wallets/users/${userId}`
     );
-    console.log(result);
     return result.data;
   }
 
   public static async GetStocks(): Promise<Stock[]> {
-    const stocks = await axios.get("http://192.168.0.14:5000/api/stocks");
+    const stocks = await axios.get("http://192.168.0.32:6200/api/stocks");
     return stocks.data;
   }
 
   public static async GetUser(): Promise<User> {
-    const result = await axios.get("http://192.168.0.14:5000/api/users");
+    const result = await axios.get("http://192.168.0.32:6200/api/users");
     return result.data;
   }
 }

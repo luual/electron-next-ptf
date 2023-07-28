@@ -34,7 +34,6 @@ export default function UserSettings() {
   };
 
   const disconnectUser = () => {
-    console.log("disconnect")
     dispatcher(updateUser(null));
     localStorage.removeItem("user");
     dispatcher(clearPortfolio());
@@ -42,7 +41,6 @@ export default function UserSettings() {
 
   const requestPortfolioData = async (userId: string) => {
     const wallets = await APIRequest.GetUserWallets(userId)
-    console.log(wallets);
     wallets?.forEach((x) => dispatcher(updatePortfolio(x)));
   };
 
