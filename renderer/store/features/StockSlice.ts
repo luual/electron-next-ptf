@@ -25,7 +25,6 @@ const stockSlice = createSlice({
         state.figi = action.payload.figi;
         state.mic = action.payload.mic;
         state.symbol = action.payload.symbol;
-        console.log(action.payload, state)
       }
     },
   },

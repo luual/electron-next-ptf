@@ -17,7 +17,6 @@ function PortfolioDetailsItem({ item }: { item: StockQuantity }) {
     <button
       className="w-full hover:cursor-pointer"
       onClick={() => {
-        console.log("dispatch", item);
         dispatch(
           updateStock({
             _id: item.stock._id,

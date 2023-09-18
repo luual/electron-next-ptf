@@ -59,4 +59,7 @@ export const { updatePortfolio, updateUserIdPortfolio, updateSelectedPortfolio, 
 export const portfolioManagerInfo = (state: RootState) =>
   state.portfolioManager;
 
+export const selectedPortfolio = (state: RootState) =>
+  state.portfolioManager?.selectedPortofolio;
+
 export default portfolioManagerSlice.reducer;

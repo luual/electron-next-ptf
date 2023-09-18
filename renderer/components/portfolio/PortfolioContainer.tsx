@@ -1,4 +1,3 @@
-import { LinkNone1Icon } from "@radix-ui/react-icons";
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import { ReactNode } from "react";
 
@@ -9,7 +8,7 @@ type ContainerProps = {
 
 export default function PortfolioContainer(props: ContainerProps) {
   return (
-    <div className="h-full">
+    <div className="h-full text-black">
       <ScrollArea.Root className="h-full rounded overflow-y-auto shadow-[0_2px_10px] shadow-blackA7 bg-white py-1">
         <ScrollArea.Viewport className="rounded">
           <div className="px-5">

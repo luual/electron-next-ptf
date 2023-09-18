@@ -120,6 +120,18 @@ export default function UserSettings() {
                   </div>
                 </button>
               </DropdownMenu.Item>
+              <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+                <button
+                  className="flex justify-end w-full cursor-pointer
+                            hover:border-0"
+                  onClick={() => (location.href = "/tests")}
+                >
+                  Tests{" "}
+                  <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+                    ⌘+T
+                  </div>
+                </button>
+              </DropdownMenu.Item>
             </DropdownMenu.SubContent>
           </DropdownMenu.Portal>
         </DropdownMenu.Sub>

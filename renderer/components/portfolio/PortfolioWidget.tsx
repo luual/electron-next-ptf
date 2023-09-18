@@ -1,7 +1,6 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import OptionsWidget from "components/widgets/Options";
 import React, { useState } from "react";
-import { selectCount } from "store/features/slices";
 import { sendToast } from "store/features/ToastEnabler";
 import { useAppDispatch, useAppSelector } from "store/hook";
 
@@ -10,7 +9,6 @@ import { useAppDispatch, useAppSelector } from "store/hook";
  * @returns
  */
 export function PortfolioWidget() {
-  const count = useAppSelector(selectCount);
   const dispatcher = useAppDispatch();
 
   const triggerMessage = () => {
@@ -48,7 +46,6 @@ export function PortfolioWidget() {
         </Tabs.Content>
         <Tabs.Content value="RFQ">
           <button onClick={() => triggerMessage()}>Trigger Toast</button>
-          <div>count: {count}</div>
         </Tabs.Content>
       </Tabs.Root>
     </div>

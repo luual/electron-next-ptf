@@ -29,3 +29,13 @@ export type Stock = {
     description: string,
     currency: string,
 }
+
+export type Transaction = {
+    _id: string;
+    walletId: string;
+    stockId: string;
+    quantity: number;
+    stockPrice: number;
+    description: string;
+    executedDate: string;
+}

@@ -1,6 +1,7 @@
 import { HomeIcon } from "@radix-ui/react-icons";
 import TooltipCard from "./ui/TooltipCard";
-import { useState } from "react";
+import { BuildingLibrary } from "assets/Icons";
+
 
 export default function Footer() {
   return (
@@ -11,6 +12,9 @@ export default function Footer() {
         </button>
         <button className="footer-icon" onClick={() => location.href = '/stocks'}>
           <HomeIcon />
+        </button>
+        <button className="footer-icon" onClick={() => location.href = '/transactions'}>
+          <BuildingLibrary />
         </button>
         <TooltipCard />
       </div>

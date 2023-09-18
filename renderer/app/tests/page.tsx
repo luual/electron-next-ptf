@@ -1,5 +1,5 @@
 import Layout from "components/Layout";
 
 export default function Tests() {
-  return <div>New Next13 feature</div>;
+  return <div className="bg-red-600">New Next13 feature</div>;
 }

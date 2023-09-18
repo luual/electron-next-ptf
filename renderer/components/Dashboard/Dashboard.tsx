@@ -9,8 +9,9 @@ import {
 } from "interfaces/Tickers";
 import { ResponseTypeHelper } from "utils/responses";
 import { PortfolioWidget } from "components/portfolio/PortfolioWidget";
-import { OHLC } from "components/charts/Chartdata";
+import { OHLC, SerieData } from "components/charts/Chartdata";
 import CandlestickChart from "components/charts/CandleStickCharts";
+import AreaChart from "components/charts/AreaChart";
 import StockInfo from "components/Stocks/StockInfo";
 import StockAction from "components/Stocks/StockAction";
 import { useAppSelector } from "store/hook";
@@ -38,16 +39,12 @@ export default function Dashboard() {
   const [ticker, setTicker] = useState<string>("");
   const [stats, setStats] = useState<Stats | null>();
   const [OHLCserieData, setOHLCSerieData] = useState<OHLC[]>([]);
+  const [price, setPrice] = useState<SerieData[]>([])
   const selectedPortfolio = useAppSelector(portfolioManagerInfo);
   const selectedStock = useAppSelector(stockInfo);
 
   useEffect(() => {
-    console.log(selectedStock);
-  }, [])
-
-  useEffect(() => {
     if (selectedStock.description != "") {
-      console.log("Querying real time data for ", selectedStock.description);
       connectTicker(selectedStock.description);
     }
   }, [selectedStock]);
@@ -55,6 +52,7 @@ export default function Dashboard() {
   const connectTicker = (ticker: string) => {
     const ws = new WebSocket("ws://192.168.0.32:6200/ticker/ohlc");
     setOHLCSerieData([]);
+    setPrice([]);
 
     ws.onmessage = (event: MessageEvent<string>) => {
       if (websocket != null) {
@@ -66,6 +64,7 @@ export default function Dashboard() {
       const helper = new ResponseTypeHelper();
       helper.register(3002, (data: OHLC) => {
         setOHLCSerieData((old) => [...old, data]);
+        setPrice((old) => [...old, { time: data.time, value: data.close }])
       });
       helper.register(2002, (data: TickerSubscription) =>
         setTicker(data.symbol)
@@ -135,7 +134,8 @@ export default function Dashboard() {
               {stats?.Performance.toFixed(2)}%
             </div>
           </div>
-          <CandlestickChart className="z-0 flex-auto" data={OHLCserieData} />
+          {/* <CandlestickChart className="z-0 flex-auto" data={OHLCserieData} /> */}
+          <AreaChart className="z-0 flex-auto" data={price} />
           <div className="w-full bg-white rounded-[4px] my-2">
             <PortfolioWidget />
           </div>

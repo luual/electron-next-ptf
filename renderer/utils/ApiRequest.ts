@@ -1,6 +1,6 @@
 import { Wallet } from "interfaces/Wallets";
 import axios from "axios";
-import { Stock } from "interfaces/Tickers";
+import { Stock, Transaction } from "interfaces/Tickers";
 import { User } from "interfaces/users";
 
 export default class APIRequest {
@@ -19,5 +19,12 @@ export default class APIRequest {
   public static async GetUser(): Promise<User> {
     const result = await axios.get("http://192.168.0.32:6200/api/users");
     return result.data;
+  }
+
+  public static async GetTransaction(walletId:string): Promise<Transaction[]> {
+    const result = await axios.get(
+      `http://192.168.0.32:6200/api/transactions/${walletId}`
+    );
+    return result.data
   }
 }
