@@ -13,7 +13,6 @@ export default function PortfolioSelector() {
   const dispatch = useAppDispatch();
 
   const onChange = (value: string) => {
-    console.log(value);
     const portfolio = portfolios.portfolios.filter((p) => p._id === value);
     if (portfolio != null && portfolio.length === 1) {
       dispatch(updateSelectedPortfolio(portfolio[0]));

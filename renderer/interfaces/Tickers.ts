@@ -39,3 +39,9 @@ export type Transaction = {
     description: string;
     executedDate: string;
 }
+
+export type LastPrice = {
+    symbol: string;
+    date: string;
+    last: number
+}

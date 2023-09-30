@@ -8,7 +8,6 @@ export default function Page({ children }) {
   return (
     <Layout title="Documentation">
       <div className="text-white">
-        <h1>{data?.id ?? "testd"}</h1>
         <Documentation />
       </div>
     </Layout>

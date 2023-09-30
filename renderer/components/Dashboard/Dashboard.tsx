@@ -10,13 +10,13 @@ import {
 import { ResponseTypeHelper } from "utils/responses";
 import { PortfolioWidget } from "components/portfolio/PortfolioWidget";
 import { OHLC, SerieData } from "components/charts/Chartdata";
-import CandlestickChart from "components/charts/CandleStickCharts";
 import AreaChart from "components/charts/AreaChart";
 import StockInfo from "components/Stocks/StockInfo";
 import StockAction from "components/Stocks/StockAction";
 import { useAppSelector } from "store/hook";
-import { portfolioManagerInfo } from "@features/portofolioManager";
+import { portfolioManagerInfo, selectedPortfolio } from "@features/portofolioManager";
 import { stockInfo } from "@features/StockSlice";
+import APIRequest from "utils/ApiRequest";
 
 class Stats {
   High: number;
@@ -40,17 +40,26 @@ export default function Dashboard() {
   const [stats, setStats] = useState<Stats | null>();
   const [OHLCserieData, setOHLCSerieData] = useState<OHLC[]>([]);
   const [price, setPrice] = useState<SerieData[]>([])
-  const selectedPortfolio = useAppSelector(portfolioManagerInfo);
+  const portfolioInfo = useAppSelector(portfolioManagerInfo);
+  const portfolio = useAppSelector(selectedPortfolio)
   const selectedStock = useAppSelector(stockInfo);
 
   useEffect(() => {
     if (selectedStock.description != "") {
-      connectTicker(selectedStock.description);
+      APIRequest.GetLast(selectedStock.description)
+      .then(res => {
+        const ce = res.map(x => { return {
+          value: x.last,
+          time: x.date
+        }})
+        setPrice(ce);
+      });
+      // connectTicker(selectedStock.description);
     }
   }, [selectedStock]);
 
   const connectTicker = (ticker: string) => {
-    const ws = new WebSocket("ws://192.168.0.32:6200/ticker/ohlc");
+    const ws = new WebSocket("ws://127.0.0.1:6200/ticker/ohlc");
     setOHLCSerieData([]);
     setPrice([]);
 
@@ -114,7 +123,7 @@ export default function Dashboard() {
           percentage={0}
           currency="$"
           name=""
-          value={100000.08}
+          value={portfolio?.cash ?? 0}
         />
         <PerformanceWidget
           title="Portfolio"
@@ -124,7 +133,7 @@ export default function Dashboard() {
           value={432.19}
         />
       </div>
-      <div className="grid grid-cols-5 my-2 flex-auto w-full">
+      <div className="my-2 flex-auto w-full md:grid md:grid-cols-5">
         <div className="col-span-4 flex flex-col rounded-[2px]">
           <div className="h-[40px] flex justify-between text-white items-center">
             <div className="font-medium">{selectedStock?.description}</div>
@@ -142,7 +151,7 @@ export default function Dashboard() {
         </div>
         <div className="grid grid-flow-row auto-rows-auto ml-2 gap-2">
           <PortfolioContainer
-            title={selectedPortfolio?.selectedPortofolio?.name ?? ""}
+            title={portfolioInfo?.selectedPortofolio?.name ?? ""}
           >
             <PortfolioDetailsGenerator portfolioId={1} />
           </PortfolioContainer>

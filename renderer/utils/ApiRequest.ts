@@ -1,30 +1,46 @@
 import { Wallet } from "interfaces/Wallets";
 import axios from "axios";
-import { Stock, Transaction } from "interfaces/Tickers";
+import { LastPrice, Stock, Transaction } from "interfaces/Tickers";
 import { User } from "interfaces/users";
 
+const API_SERVER = "127.0.0.1:6200"
+
 export default class APIRequest {
-  public static async GetUserWallets(userId:string): Promise<Wallet[] | null> {    
+  public static async GetUserWallets(userId: string): Promise<Wallet[] | null> {
     const result = await axios.get(
-      `http://192.168.0.32:6200/api/wallets/users/${userId}`
+      `http://${API_SERVER}/api/wallets/users/${userId}`
     );
     return result.data;
   }
 
   public static async GetStocks(): Promise<Stock[]> {
-    const stocks = await axios.get("http://192.168.0.32:6200/api/stocks");
+    const stocks = await axios.get(`http://${API_SERVER}/api/stocks`);
     return stocks.data;
   }
 
   public static async GetUser(): Promise<User> {
-    const result = await axios.get("http://192.168.0.32:6200/api/users");
+    const result = await axios.get(`http://${API_SERVER}/api/users`);
     return result.data;
   }
 
-  public static async GetTransaction(walletId:string): Promise<Transaction[]> {
+  public static async GetTransaction(walletId: string): Promise<Transaction[]> {
     const result = await axios.get(
-      `http://192.168.0.32:6200/api/transactions/${walletId}`
+      `http://${API_SERVER}/api/transactions/${walletId}`
     );
     return result.data
   }
+
+  public static async GetLast(symbol: string, depth: number | null = null): Promise<LastPrice[]> {
+    if (depth == null) {
+      const result = await axios.get(
+        `http://${API_SERVER}/api/lasts/${symbol}`
+      )
+      return result.data
+    }
+    const result = await axios.get(
+      `http://${API_SERVER}/api/lasts/${depth}/${symbol}`
+    )
+    return result.data
+  }
+
 }
